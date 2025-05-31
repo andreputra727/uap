@@ -1,0 +1,97 @@
+package uap.models;
+
+import uap.bases.Shape;
+import uap.interfaces.MassCalculable;
+import uap.interfaces.MassConverter;
+import uap.interfaces.PiRequired;
+import uap.interfaces.ShippingCostCalculator;
+import uap.interfaces.ThreeDimensional;
+
+/**
+ * Class untuk cetakan donat bulat tanpa lubang
+ * Bentuknya kayak bola biasa, beda sama donut yang ada lubangnya
+ */
+public class Sphere extends Shape implements ThreeDimensional, PiRequired, MassCalculable {
+    private double radius; // Jari-jari bola
+
+    /**
+     * Bikin objek cetakan bola baru
+     * @param radius Ukuran jari-jari bolanya
+     */
+    public Sphere(double radius) {
+        super(); // Panggil constructor induknya dulu
+        setName("Sphere"); // Kasih nama "Sphere" sebagai default
+        this.radius = radius;
+    }
+
+    /**
+     * Ambil ukuran jari-jari bola
+     * @return Jari-jari dalam cm
+     */
+    public double getRadius() {
+        return radius;
+    }
+
+    /**
+     * Hitung volume bola
+     * Pakai rumus matematika: V = (4/3) * π * r³
+     * @return Volume dalam cm kubik
+     */
+    @Override
+    public double getVolume() {
+        return (4.0 / 3.0) * PI * this.radius * this.radius * this.radius;
+    }
+
+    /**
+     * Hitung luas permukaan bola
+     * Rumus: A = 4 * π * r²
+     * @return Luas permukaan dalam cm persegi
+     */
+    @Override
+    public double getSurfaceArea() {
+        return 4 * PI * this.radius * this.radius;
+    }
+
+    /**
+     * Hitung berat cetakan dalam gram
+     * Rumus: berat = densitas * luas permukaan * ketebalan plat
+     * @return Berat dalam gram
+     */
+    @Override
+    public double getMass() {
+        return DENSITY * getSurfaceArea() * THICKNESS;
+    }
+
+    /**
+     * Cetak semua info hasil perhitungan
+     * Format outputnya disesuaikan sama yang diminta soal
+     */
+    @Override
+    public void printInfo() {
+        System.out.printf("Volume          : %.2f\n", getVolume());
+        System.out.printf("Luas permukaan  : %.2f\n", getSurfaceArea());
+        System.out.printf("Massa           : %.2f\n", getMass()); // Berat dalam gram
+    }
+
+    /**
+     * Ubah satuan berat dari gram ke kilogram
+     * Bagi 1000 sesuai konstanta yang udah ada
+     * @return Berat dalam kilogram
+     */
+    @Override
+    public double gramToKilogram() {
+        return getMass() / MassConverter.DENOMINATOR;
+    }
+
+    /**
+     * Hitung ongkos kirim cetakan ini
+     * Berat dibulatkan ke atas dulu, baru dikali tarif per kg
+     * @return Ongkos kirim dalam rupiah
+     */
+    @Override
+    public double calculateCost() {
+        double massInKg = gramToKilogram();
+        double roundedKg = Math.ceil(massInKg); // Bulatkan ke atas
+        return roundedKg * ShippingCostCalculator.PRICE_PER_KG;
+    }
+}
