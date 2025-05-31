@@ -1,0 +1,19 @@
+package uap.interfaces;
+
+/**
+ * Interface untuk bentuk 3D
+ * Karena cetakan donat punya bentuk ruang, bukan cuma gambar datar
+ */
+public interface ThreeDimensional {
+    /**
+     * Hitung luas permukaan cetakan
+     * Butuh ini untuk tau berapa banyak bahan yang diperlukan
+     */
+    double getSurfaceArea();
+
+    /**
+     * Hitung volume atau isi ruang cetakan
+     * Berguna untuk estimasi berapa besar tempat penyimpanan
+     */
+    double getVolume();
+}
