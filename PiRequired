@@ -1,0 +1,13 @@
+package uap.interfaces;
+
+/**
+ * Interface yang nyediain nilai PI untuk perhitungan
+ * Soalnya bentuk donat kan bulat, pasti butuh PI
+ */
+public interface PiRequired {
+    /**
+     * Nilai PI pakai 22/7 seperti yang dipelajari di sekolah
+     * Lebih gampang dihitung daripada 3.14159... yang panjang
+     */
+    double PI = 22.0 / 7.0; // Pakai 22.0 biar hasilnya desimal, bukan bulat
+}
