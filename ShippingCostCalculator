@@ -1,0 +1,18 @@
+package uap.interfaces;
+
+/**
+ * Interface untuk ngatur tarif ongkos kirim
+ * Biar semua cetakan pakai harga yang sama
+ */
+public interface ShippingCostCalculator {
+    /**
+     * Tarif kirim per kilogram
+     * Harga standar ekspedisi lokal 2000 rupiah per kg
+     */
+    int PRICE_PER_KG = 2000; // dalam rupiah
+
+    // Method calculateCost() udah ditangani di MassCalculable
+    // Interface ini fokus nyediain tarif standar aja
+    // Jadi semua produk cetakan pakai harga kirim yang sama
+    // double calculateCost(); // Sesuai diagram UML, tapi implementasinya via MassCalculable
+}
