@@ -1,0 +1,37 @@
+package uap.interfaces;
+
+/**
+ * Interface untuk objek cetakan yang bisa dihitung massanya
+ * Digunakan untuk cetakan donat dari bahan stainless steel
+ */
+public interface MassCalculable {
+    /**
+     * Berat jenis stainless steel 304 yang dipakai pabrik
+     * Nilai standar industri: 8 gram per cm kubik
+     */
+    int DENSITY = 8; // g/cm^3
+
+    /**
+     * Tebal plat bahan cetakan 
+     * Ketebalan 0.5 cm sudah cukup kuat untuk cetakan donat
+     */
+    double THICKNESS = 0.5; // cm
+
+    /**
+     * Hitung berapa gram berat total cetakan ini
+     * Rumus: densitas x luas permukaan x ketebalan
+     */
+    double getMass();
+
+    /**
+     * Ubah satuan dari gram jadi kilogram
+     * Biar gampang ngitung ongkir yang biasanya per kg
+     */
+    double gramToKilogram();
+
+    /**
+     * Hitung ongkos kirim berdasarkan berat
+     * Tarif ekspedisi biasanya per kg dengan pembulatan ke atas
+     */
+    double calculateCost();
+}
