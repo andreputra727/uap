@@ -1,0 +1,73 @@
+package uap.mains;
+
+import uap.models.Sphere;
+import uap.models.Torus;
+import java.util.Scanner; // Diperlukan untuk membaca input dari user
+import java.util.Locale;  // Agar pembacaan angka desimal (misal 3.5) konsisten
+
+/**
+ * Kelas utama program Kalkulator Pabrik Cetakan Donat.
+ * Bertugas mengatur alur, mengambil input user, membuat objek cetakan,
+ * dan menampilkan hasil kalkulasi.
+ */
+public class KalkulatorPabrik {
+    public static void main(String[] args) {
+        // Siapkan scanner untuk menangani input dari keyboard.
+        // Locale.US dipakai biar angka desimal (pakai titik, contoh: 3.5) aman dibaca di sistem manapun.
+        Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
+
+        // Bagian header program
+        System.out.println("========================================");
+        System.out.println("Kalkulator Pabrik Cetakan Donat Rumahan"); 
+        System.out.println("ANDRE SYAPUTRA SIREGAR"); 
+        System.out.println("245150707111045");          
+        System.out.println("========================================");
+
+        // Proses untuk cetakan Torus (donat dengan lubang)
+        System.out.println("Donat dengan lubang");
+        System.out.println("========================================");
+
+        // Ambil input dimensi untuk Torus
+        System.out.print("Isikan Radius   : "); // Minta radius luar (mayor)
+        double majorRadiusTorus = scanner.nextDouble();
+
+        System.out.print("Isikan radius   : "); // Minta radius dalam (minor)
+        double minorRadiusTorus = scanner.nextDouble();
+        // Jika setelah ini ada scanner.nextLine(), mungkin butuh scanner.nextLine(); di sini
+        // untuk "membersihkan" sisa newline dari input double. Tapi sekarang belum perlu.
+
+        System.out.println("========================================");
+
+        // Buat objek Torus berdasarkan input tadi
+        Torus torus = new Torus(majorRadiusTorus, minorRadiusTorus);
+        torus.printInfo(); // Method ini akan cetak Volume, Luas, dan Massa (gram)
+
+        // Tampilkan hasil perhitungan massa (kg) dan biaya kirim untuk Torus
+        System.out.printf("Massa dalam kg  : %.2f\n", torus.gramToKilogram());
+        System.out.printf("Biaya kirim     : Rp%.0f\n", torus.calculateCost());
+        System.out.println("========================================");
+
+        // Lanjut ke proses untuk cetakan Sphere (donat tanpa lubang)
+        System.out.println("Donat tanpa lubang");
+        System.out.println("========================================");
+
+        // Ambil input dimensi untuk Sphere
+        System.out.print("Isikan radius   : "); // Minta radius untuk Sphere
+        double radiusSphere = scanner.nextDouble();
+        // Sama seperti sebelumnya, perhatikan jika ada nextLine() setelah ini.
+
+        System.out.println("========================================");
+
+        // Buat objek Sphere dari input
+        Sphere sphere = new Sphere(radiusSphere);
+        sphere.printInfo(); // Cetak detail Volume, Luas, dan Massa (gram) Sphere
+
+        // Tampilkan hasil perhitungan massa (kg) dan biaya kirim untuk Sphere
+        System.out.printf("Massa dalam kg  : %.2f\n", sphere.gramToKilogram());
+        System.out.printf("Biaya kirim     : Rp%.0f\n", sphere.calculateCost());
+        System.out.println("========================================");
+
+        // Selesai pakai scanner, sebaiknya ditutup untuk rilis resource.
+        scanner.close();
+    }
+}
