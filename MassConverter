@@ -1,0 +1,18 @@
+package uap.interfaces;
+
+/**
+ * Interface untuk bantu konversi satuan berat
+ * Karena ongkir biasanya dihitung per kg, tapi perhitungan massa kita dalam gram
+ */
+public interface MassConverter {
+    /**
+     * Angka pembagi untuk ubah gram ke kg
+     * 1 kg = 1000 gram, jadi bagi 1000
+     */
+    int DENOMINATOR = 1000;
+
+    // Method gramToKilogram() udah ada di MassCalculable
+    // Interface ini cuma nyediain konstanta DENOMINATOR aja
+    // Biar semua class pakai angka yang sama untuk konversi
+    // double gramToKilogram(); // Ada di diagram UML, tapi implementasinya lewat MassCalculable
+}
