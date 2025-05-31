@@ -1,0 +1,43 @@
+package uap.bases;
+
+/**
+ * Kelas dasar (abstrak) untuk berbagai bentuk geometris.
+ * Setiap 'Shape' pasti punya nama dan cara sendiri untuk menampilkan informasinya.
+ */
+public abstract class Shape {
+    /**
+     * Buat nyimpen nama bentuknya, misalnya "Torus" atau "Sphere".
+     */
+    private String name;
+
+    /**
+     * Konstruktor standar untuk Shape.
+     * Saat ini dibiarkan kosong, bisa ditambahkan logika jika semua Shape butuh setup awal yang sama.
+     */
+    public Shape() {
+        // Belum ada yang perlu diinisialisasi secara umum di sini.
+    }
+
+    /**
+     * Untuk mengatur atau mengubah nama dari bentuk ini.
+     * @param inputName Nama baru yang ingin diberikan ke bentuk.
+     */
+    public void setName(String inputName) {
+        this.name = inputName;
+    }
+
+    /**
+     * Untuk mendapatkan nama yang saat ini dimiliki bentuk.
+     * @return Nama bentuknya (dalam String).
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Metode ini 'abstrak', artinya setiap turunan dari Shape (seperti Torus, Sphere)
+     * WAJIB menyediakan implementasi sendiri tentang bagaimana cara menampilkan informasinya.
+     * Info yang dicetak biasanya meliputi Volume, Luas Permukaan, dan Massa (gram).
+     */
+    public abstract void printInfo();
+}
