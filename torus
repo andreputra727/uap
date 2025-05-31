@@ -1,0 +1,96 @@
+package uap.models;
+
+import uap.bases.Shape;
+import uap.interfaces.MassCalculable;
+import uap.interfaces.MassConverter; // Untuk menggunakan konstanta DENOMINATOR (konversi gram ke kg)
+import uap.interfaces.PiRequired;    // Untuk menggunakan konstanta PI
+import uap.interfaces.ShippingCostCalculator; // Untuk menggunakan konstanta PRICE_PER_KG
+import uap.interfaces.ThreeDimensional;
+
+/**
+ * Kelas ini merepresentasikan bentuk Torus (seperti donat dengan lubang di tengah).
+ * Merupakan turunan dari kelas Shape dan mengimplementasikan beberapa interface
+ * untuk menghitung volume, massa, dan biaya pengiriman.
+ */
+public class Torus extends Shape implements ThreeDimensional, PiRequired, MassCalculable {
+    private double majorRadius; // Jari-jari luar (besar) torus
+    private double minorRadius; // Jari-jari dalam (kecil) torus
+
+    /**
+     * Konstruktor untuk membuat objek torus dengan jari-jari mayor dan minor.
+     * @param majorRadius Jari-jari besar (luar)
+     * @param minorRadius Jari-jari kecil (dalam)
+     */
+    public Torus(double majorRadius, double minorRadius) {
+        super(); // Panggil konstruktor dari kelas induk (Shape)
+        setName("Torus"); // Set nama bentuk ke "Torus"
+        this.majorRadius = majorRadius;
+        this.minorRadius = minorRadius;
+    }
+
+    public double getMajorRadius() {
+        return majorRadius;
+    }
+
+    public double getMinorRadius() {
+        return minorRadius;
+    }
+
+    /**
+     * Menghitung volume torus menggunakan rumus:
+     * V = 2 * π² * R * r²
+     */
+    @Override
+    public double getVolume() {
+        return 2 * PI * PI * this.majorRadius * this.minorRadius * this.minorRadius;
+    }
+
+    /**
+     * Menghitung luas permukaan torus menggunakan rumus:
+     * A = 4 * π² * R * r
+     */
+    @Override
+    public double getSurfaceArea() {
+        return 4 * PI * PI * this.majorRadius * this.minorRadius;
+    }
+
+    /**
+     * Menghitung massa torus dalam gram.
+     * Rumus: massa = densitas * luas permukaan * ketebalan
+     */
+    @Override
+    public double getMass() {
+        return DENSITY * getSurfaceArea() * THICKNESS;
+    }
+
+    /**
+     * Menampilkan informasi lengkap tentang torus:
+     * volume, luas permukaan, dan massa (dalam gram).
+     */
+    @Override
+    public void printInfo() {
+        System.out.printf("Volume          : %.2f\n", getVolume());
+        System.out.printf("Luas permukaan  : %.2f\n", getSurfaceArea());
+        System.out.printf("Massa           : %.2f\n", getMass());
+    }
+
+    /**
+     * Mengubah satuan massa dari gram ke kilogram.
+     * Menggunakan konstanta DENOMINATOR dari MassConverter.
+     */
+    @Override
+    public double gramToKilogram() {
+        return getMass() / MassConverter.DENOMINATOR;
+    }
+
+    /**
+     * Menghitung biaya pengiriman berdasarkan massa dalam kilogram.
+     * Massa dibulatkan ke atas sebelum dikalikan dengan harga per kilogram.
+     */
+    @Override
+    public double calculateCost() {
+        double massInKg = gramToKilogram();
+        double roundedKg = Math.ceil(massInKg); // Pembulatan ke atas
+        return roundedKg * ShippingCostCalculator.PRICE_PER_KG;
+    }
+}
